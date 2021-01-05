@@ -1,10 +1,10 @@
 package kr.co.jhjh550.mypodcast
 
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.jhjh550.mypodcast.databinding.ItemFileBinding
@@ -16,12 +16,35 @@ class DirAdapter: RecyclerView.Adapter<DirAdapter.MyViewHolder>() {
     private val items: ArrayList<File> = ArrayList()
 
     init {
+        /***
+         * Download 폴더에 audio 파일이 있을 경우에만 디렉토리 추가
+         */
         rootDir.listFiles()?.let {
-            for(file in it){
-                if(file.isDirectory)
-                    items.add(file)
+            for(dir in it){
+                if(dir.isDirectory) {
+                    dir.listFiles()?.let{ childs ->
+                         for(f in childs) {
+                             if(isAudioFile(f)){
+                                 items.add(dir)
+                                 return@let
+                             }
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private fun isAudioFile(f: File): Boolean{
+        if(f.isFile){
+            val type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(f.extension)
+            type?.apply {
+                if(startsWith("audio"))
+                    return true
+            }
+        }
+
+        return false
     }
 
 
@@ -36,15 +59,29 @@ class DirAdapter: RecyclerView.Adapter<DirAdapter.MyViewHolder>() {
         holder.bind(file)
         holder.itemView.setOnClickListener {
             if(file.isFile){
+                /***
+                 *
+                 */
                 Toast.makeText(holder.itemView.context, "file: ${file.name}", Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(holder.itemView.context, "directory: ${file.name}", Toast.LENGTH_LONG).show()
+                /***
+                 * child file 중에서 audio file 만 add
+                 */
+                items.clear()
+                file.listFiles()?.let{
+                    for(f in it){
+                        if(isAudioFile(f)){
+                            items.add(f)
+                        }
+                    }
+                    notifyDataSetChanged()
+                }
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return items?.size ?: 0
+        return items.size
     }
 
     class MyViewHolder(private val binding: ItemFileBinding):
