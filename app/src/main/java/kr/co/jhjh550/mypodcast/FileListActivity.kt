@@ -1,5 +1,6 @@
 package kr.co.jhjh550.mypodcast
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,9 @@ class FileListActivity : AppCompatActivity() {
         binding.rvDir.apply {
             val dirName = intent.getStringExtra("name") ?: ""
             adapter = DirAdapter(dirName){ fileName ->
-
+                val myIntent = Intent(this@FileListActivity, PlayActivity::class.java)
+                myIntent.putExtra("path", "$dirName/$fileName")
+                startActivity(myIntent)
             }
             layoutManager = LinearLayoutManager(this@FileListActivity)
         }

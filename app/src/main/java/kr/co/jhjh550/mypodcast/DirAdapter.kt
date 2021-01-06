@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.jhjh550.mypodcast.databinding.ItemFileBinding
 import java.io.File
 
-/***
- * todo : directory list activity, file list activity, play activity, play service 로 구성
- * todo : adapter 에 string 받으면 file list, null 이면 directory 만 보여주
- */
+
 class DirAdapter(private val dirName:String,
                     private val callback:(name:String)->Unit
 ): RecyclerView.Adapter<DirAdapter.MyViewHolder>() {
@@ -82,16 +79,7 @@ class DirAdapter(private val dirName:String,
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val file = items[position]
         holder.bind(file)
-        holder.itemView.setOnClickListener {
-            if(file.isFile){
-                /***
-                 *
-                 */
-                Toast.makeText(holder.itemView.context, "file: ${file.name}", Toast.LENGTH_LONG).show()
-            }else{
-                callback(file.name)
-            }
-        }
+        holder.itemView.setOnClickListener { callback(file.name) }
     }
 
     override fun getItemCount(): Int {
