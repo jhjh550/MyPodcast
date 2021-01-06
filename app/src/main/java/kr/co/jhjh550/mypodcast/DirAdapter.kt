@@ -10,12 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.jhjh550.mypodcast.databinding.ItemFileBinding
 import java.io.File
 
-class DirAdapter: RecyclerView.Adapter<DirAdapter.MyViewHolder>() {
+/***
+ * todo : directory list activity, file list activity, play activity, play service 로 구성
+ * todo : adapter 에 string 받으면 file list, null 이면 directory 만 보여주
+ */
+class DirAdapter(private val dirName:String,
+                    private val callback:(name:String)->Unit
+): RecyclerView.Adapter<DirAdapter.MyViewHolder>() {
     private val rootPath = Environment.getExternalStorageDirectory().toString()+"/Download"
     private val rootDir = File(rootPath)
     private val items: ArrayList<File> = ArrayList()
 
     init {
+        if(dirName.isEmpty()){
+            getDirNames()
+        }else{
+            getFileNames()
+        }
+
+    }
+
+    private fun getDirNames(){
         /***
          * Download 폴더에 audio 파일이 있을 경우에만 디렉토리 추가
          */
@@ -23,13 +38,23 @@ class DirAdapter: RecyclerView.Adapter<DirAdapter.MyViewHolder>() {
             for(dir in it){
                 if(dir.isDirectory) {
                     dir.listFiles()?.let{ childs ->
-                         for(f in childs) {
-                             if(isAudioFile(f)){
-                                 items.add(dir)
-                                 return@let
-                             }
+                        for(f in childs) {
+                            if(isAudioFile(f)){
+                                items.add(dir)
+                                return@let
+                            }
                         }
                     }
+                }
+            }
+        }
+    }
+    private fun getFileNames(){
+        val dir = File(rootDir, dirName)
+        dir.listFiles()?.let{
+            for(f in it){
+                if(isAudioFile(f)){
+                    items.add(f)
                 }
             }
         }
@@ -64,18 +89,7 @@ class DirAdapter: RecyclerView.Adapter<DirAdapter.MyViewHolder>() {
                  */
                 Toast.makeText(holder.itemView.context, "file: ${file.name}", Toast.LENGTH_LONG).show()
             }else{
-                /***
-                 * child file 중에서 audio file 만 add
-                 */
-                items.clear()
-                file.listFiles()?.let{
-                    for(f in it){
-                        if(isAudioFile(f)){
-                            items.add(f)
-                        }
-                    }
-                    notifyDataSetChanged()
-                }
+                callback(file.name)
             }
         }
     }
