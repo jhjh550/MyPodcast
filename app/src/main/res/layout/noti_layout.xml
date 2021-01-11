@@ -18,12 +18,14 @@
         android:layout_width="0dp"
         android:layout_height="match_parent">
         <TextView
+            android:id="@+id/notibar_tvFileName"
             android:textStyle="bold"
             android:textColor="#000"
             android:text="Unknown Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/notibar_tvDirName"
             android:layout_marginTop="4dp"
             android:textSize="12dp"
             android:text="Unknown Artist"
@@ -32,24 +34,28 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/notibar_prev30"
         android:layout_marginStart="10dp"
         android:src="@drawable/ic_replay_30"
         android:layout_width="36dp"
         android:layout_height="36dp"/>
     
     <ImageView
+        android:id="@+id/notibar_play"
         android:layout_marginStart="10dp"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:src="@drawable/ic_play"/>
 
     <ImageView
+        android:id="@+id/notibar_next30"
         android:layout_marginStart="10dp"
         android:src="@drawable/ic_forward_30"
         android:layout_width="36dp"
         android:layout_height="36dp"/>
 
     <ImageView
+        android:id="@+id/notibar_close"
         android:layout_marginStart="10dp"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
         android:layout_width="24dp"

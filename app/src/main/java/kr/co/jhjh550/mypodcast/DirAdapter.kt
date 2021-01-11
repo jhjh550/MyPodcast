@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.jhjh550.mypodcast.databinding.ItemFileBinding
 import java.io.File
 
+// todo : storage permission
 
 class DirAdapter(private val dirName:String,
                     private val callback:(name:String)->Unit
