@@ -1,10 +1,13 @@
 package kr.co.jhjh550.mypodcast
 
+import android.app.Notification
 import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
+import android.view.View
+import android.widget.RemoteViews
 
 class MusicService : Service() {
 
@@ -17,6 +20,11 @@ class MusicService : Service() {
     private val binder = MusicServiceBinder()
     override fun onBind(intent: Intent): IBinder {
         return binder
+    }
+
+    private fun sendNotification(){
+        val views = RemoteViews(packageName, R.layout.noti_layout)
+        val notificationIntent = Intent(this, PlayActivity::class.java)
     }
 
     private var mp: MediaPlayer? = null
