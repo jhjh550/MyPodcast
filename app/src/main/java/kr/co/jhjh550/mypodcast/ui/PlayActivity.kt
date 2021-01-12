@@ -1,17 +1,16 @@
-package kr.co.jhjh550.mypodcast
+package kr.co.jhjh550.mypodcast.ui
 
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.IBinder
-import android.widget.Toast
+import kr.co.jhjh550.mypodcast.MusicService
+import kr.co.jhjh550.mypodcast.R
 import kr.co.jhjh550.mypodcast.databinding.ActivityPlayBinding
-import java.io.File
 
 class PlayActivity : AppCompatActivity() {
     private val rootPath = Environment.getExternalStorageDirectory().toString()+"/Download"

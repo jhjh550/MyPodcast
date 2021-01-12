@@ -1,11 +1,9 @@
-package kr.co.jhjh550.mypodcast
+package kr.co.jhjh550.mypodcast.ui
 
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.jhjh550.mypodcast.databinding.ItemFileBinding
 import java.io.File

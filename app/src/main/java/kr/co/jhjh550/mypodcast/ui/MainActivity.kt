@@ -1,4 +1,4 @@
-package kr.co.jhjh550.mypodcast
+package kr.co.jhjh550.mypodcast.ui
 
 import android.content.Intent
 import android.os.Bundle

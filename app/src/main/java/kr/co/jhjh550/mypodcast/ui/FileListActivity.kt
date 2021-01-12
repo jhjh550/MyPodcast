@@ -1,10 +1,9 @@
-package kr.co.jhjh550.mypodcast
+package kr.co.jhjh550.mypodcast.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kr.co.jhjh550.mypodcast.databinding.ActivityMainBinding
 
 class FileListActivity : AppCompatActivity() {

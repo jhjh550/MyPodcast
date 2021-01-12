@@ -10,6 +10,7 @@ import android.os.Binder
 import android.os.IBinder
 import android.widget.RemoteViews
 import android.widget.Toast
+import kr.co.jhjh550.mypodcast.ui.PlayActivity
 import java.io.File
 
 class MusicService : Service() {
